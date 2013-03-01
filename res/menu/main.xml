@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/offered_ads_item"
+          android:title="@string/offered_ads" />
+    <item android:id="@+id/wanted_ads_item"
+          android:title="@string/wanted_ads" >       
+    <item android:id="@+id/my_ant_item"
+          android:title="@string/my_ant" />
+</menu>
