@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
+import android.view.Window;
 
 public class MainActivity extends Activity {
 
@@ -24,14 +25,15 @@ public class MainActivity extends Activity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     Bundle bundle = new Bundle();
-    switch(item.getId()) {
+    FragmentHelper<AdListFragment> helper = new FragmentHelper<AdListFragment>();
+    switch(item.getItemId()) {
       case R.id.offered_ads_item:
-        bundle.putString(AdFragment.AdType.getName(), AdFragment.AdType.OFFERED);
-        FragmentHelper.show<AdFragment>(this, AdFragment.class, android.R.id.content, bundle);
+        bundle.putString(AdListFragment.AdType.class.getName(), AdListFragment.AdType.OFFERED.toString());
+        helper.show(this, AdListFragment.class, android.R.id.content, bundle);
         return true;
       case R.id.wanted_ads_item:
-        bundle.putString(AdFragment.AdType.getName(), AdFragment.AdType.WANTED);
-        FragmentHelper.show<AdFragment>(this, AdFragment.class, android.R.id.content, bundle);
+        bundle.putString(AdListFragment.AdType.class.getName(), AdListFragment.AdType.WANTED.toString());
+        helper.show(this, AdListFragment.class, android.R.id.content, bundle);
         return true;
       case R.id.my_ant_item:
         return true;

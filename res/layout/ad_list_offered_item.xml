@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-  <TextView android:id="@+id/title"
+  <ImageView  android:id="@+id/ad_logo"
+              android:layout_width="22px" 
+              android:layout_height="22px" />
+  <TextView android:id="@+id/ad_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold" />
-  <TextView android:id="@+id/body"
+            android:textStyle="bold" 
+            android:layout_toRightOf="@id/ad_logo" />
+  <TextView android:id="@+id/ad_body"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-</LinearLayout>
+            android:layout_height="wrap_content" 
+            android:layout_toRightOf="@id/ad_logo"
+            android:layout_below="@id/ad_title" />
+</RelativeLayout>

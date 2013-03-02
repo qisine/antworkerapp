@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Antworker App</string>
+    <string name="offered_ads">Offered Ads</string>
+    <string name="wanted_ads">Offered Ads</string>
+    <string name="my_ant">My Ant</string>
 </resources>

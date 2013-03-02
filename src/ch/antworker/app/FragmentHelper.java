@@ -16,18 +16,18 @@ public class FragmentHelper<T extends Fragment> {
     String clsName = clazz.getName();
     FragmentManager fm = activity.getFragmentManager();
     FragmentTransaction ft = fm.beginTransaction();
-    T currentFragment = fm.findFragmentByTag(clsName);
+    T currentFragment = (T) fm.findFragmentByTag(clsName);
 
     if (currentFragment != null) {
-      if(clazz.isInstance(currentFragment) return;
+      if(clazz.isInstance(currentFragment)) return;
       ft.detach(currentFragment);
     }
     
-    currentFragment = mFragments.get(clsName);
+    currentFragment = (T) mFragments.get(clsName);
     if(currentFragment != null) {
       ft.attach(currentFragment);
     } else {
-      currentFragment = Fragment.instantiate(activity, clsName, bundle);
+      currentFragment = (T) Fragment.instantiate(activity, clsName, bundle);
       ft.replace(containerId, currentFragment, clsName);
       mFragments.put(clsName, currentFragment);
     }
