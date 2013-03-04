@@ -9,20 +9,16 @@ public abstract class BaseAd implements Ad {
   private int mId;
   private String mTitle;
   private String mBody;
+  private String mWorkLocation;
   private Date mCreatedDate;
 
-  //external ads
-  private boolean mIsExternal;
-  private String mLink;
-
   public BaseAd() { super(); }
-  public BaseAd(int id, String title, String body, String createdDate, String link) {
+  public BaseAd(int id, String title, String body, String workLocation, String createdDate) {
     mId = id;
     mTitle = title;
     mBody = body;
+    mWorkLocation = workLocation;
     setCreatedDate(createdDate);
-    mLink = link;
-    mIsExternal = link == null ? false : true;
   }
 
   public int getId() { return mId; }
@@ -34,11 +30,8 @@ public abstract class BaseAd implements Ad {
   public String getBody() { return mBody; }
   public void setBody(String body) { mBody = body; }
 
-  public String getLink() { return mLink; }
-  public void setLink(String link) { mLink = link; }
-
-  public boolean getIsExternal() { return mIsExternal; }
-  public void setIsExternal(boolean isExternal) { mIsExternal = isExternal; }
+  public String getWorkLocation() { return mWorkLocation; }
+  public void setWorkLocation(String workLocation) { mWorkLocation = workLocation; }
 
   public String getCreatedDate() {
       return FORMATTER.format(mCreatedDate);

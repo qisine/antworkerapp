@@ -23,9 +23,11 @@ public class CacheHelper extends SQLiteOpenHelper {
       + Schemas.BaseAd.TYPE + " STRING, "
       + Schemas.BaseAd.TITLE + " STRING, "
       + Schemas.BaseAd.BODY + " STRING, " 
-      + Schemas.BaseAd.CREATED_DATE + " TIMESTAMP"
-      + Schemas.OfferedAd.WORK_LOCATION + " String" + 
-    ");");
+      + Schemas.BaseAd.WORK_LOCATION + " STRING, "
+      + Schemas.BaseAd.CREATED_DATE + " TIMESTAMP, "
+      + Schemas.OfferedAd.PAY + " INT, "
+      + Schemas.ExternalOfferedAd.LINK + " STRING"
+      + ");");
   }
 
   @Override
