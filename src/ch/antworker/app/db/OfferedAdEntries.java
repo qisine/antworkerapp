@@ -1,7 +1,8 @@
 /* Modeled after Github Android app's Persistable Orgs */
 
-package ch.antworker.app.db
+package ch.antworker.app.db;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -14,13 +15,13 @@ import java.util.List;
 public class OfferedAdEntries implements CacheEntries<OfferedAd> {
   public static final String TAG = "OfferedAdEntries";
 
-  private final static AD_CLASS_NAME = OfferedAd.class.getName();
+  private static final String AD_CLASS_NAME = OfferedAd.class.getName();
 
   @Override
   public Cursor getCursor(SQLiteDatabase db) {
     SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
     builder.setTables("ads");
-    builder.appendWhere("type='" + AD_CLASS_NAME + '");
+    builder.appendWhere("type='" + AD_CLASS_NAME + "'");
     return builder.query( db,
                           new String[] { "id", "title", "body", "work_location", "created_date" },
                           null, null, null, null, null);
@@ -47,12 +48,12 @@ public class OfferedAdEntries implements CacheEntries<OfferedAd> {
       cv.put("title", ad.getTitle());
       cv.put("body", ad.getBody());
       cv.put("work_location", ad.getWorkLocation());
-      db.replace("ads", null, cv)
+      db.replace("ads", null, cv);
     }
   }
 
   @Override
   public List<OfferedAd> fetch() throws IOException {
-
+    return null;
   }
 }

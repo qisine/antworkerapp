@@ -1,13 +1,12 @@
 /* Modeled after Github Android app's DatabaseCache */
 
-package ch.antworker.app.db
+package ch.antworker.app.db;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class DbCache {
   private final SQLiteOpenHelper mHelper;
 
   public DbCache(Context ctxt) {
-    mHelper = new SQLiteDatabase(ctxt);
+    mHelper = new CacheHelper(ctxt);
   }
 
   private SQLiteDatabase getReadableDb() {
@@ -38,7 +37,7 @@ public class DbCache {
     }
   }
 
-  public <T> List<T> loadOrFetch(CacheEntries<T> entries) {
+  public <T> List<T> loadOrFetch(CacheEntries<T> entries) throws IOException {
     SQLiteDatabase db = getReadableDb();
     try {
       List<T> cached = load(entries);
@@ -49,13 +48,13 @@ public class DbCache {
     }
   }
 
-  public <T> List<T> fetchAndStore(CacheEntries<T> entries) {
+  public <T> List<T> fetchAndStore(CacheEntries<T> entries) throws IOException {
     List<T> fetched = entries.fetch();
-    store(entries);
+    store(entries, fetched);
     return fetched;
   }
 
-  public <T> void store(CacheEntries<T> entries) {
+  public <T> void store(CacheEntries<T> entries, List<T> fetched) {
     SQLiteDatabase db = getWritableDb();
     try {
       entries.store(db, fetched);
@@ -69,7 +68,7 @@ public class DbCache {
 
     Cursor c = entries.getCursor(db);
     try {
-      if(!cursor.moveToFirst()) return null;
+      if(!c.moveToFirst()) return null;
 
       List<T> cached = new ArrayList<T>();
       do
@@ -78,7 +77,7 @@ public class DbCache {
 
       return cached;
     } finally {
-      cursor.close();
+      c.close();
     }
   }
 }

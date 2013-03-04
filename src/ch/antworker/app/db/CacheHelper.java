@@ -1,4 +1,4 @@
-package ch.antworker.app.db
+package ch.antworker.app.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
