@@ -4,4 +4,13 @@
     <string name="offered_ads">Offered Ads</string>
     <string name="wanted_ads">Offered Ads</string>
     <string name="my_ant">My Ant</string>
+    <string name="login_activity_username_label">Username</string>
+    <string name="login_activity_password_label">Password</string>
+    <string name="login_activity_ok_button">OK</string>
+    <string name="show_password">Show Password</string>
+    <string name="ui_activity_authenticating">Authenticating...</string>
+    <string name="login_activity_loginfail_text_both">Username &amp; password required!</string>
+    <string name="login_activity_loginfail_text_pwonly">Password missing!</string>
+    <string name="login_activity_newaccount_text">New Account</string>
+    <string name="login_activity_loginfail_text_pwmissing">Password missing!</string>
 </resources>
