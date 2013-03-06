@@ -1,19 +1,24 @@
-package ch.antworker.app;
+package ch.antworker.app.accounts;
 
+import android.content.Intent;
 import android.accounts.AbstractAccountAuthenticator;  
 import android.accounts.Account;  
+import android.accounts.AccountManager;  
 import android.accounts.AccountAuthenticatorResponse;  
 import android.accounts.NetworkErrorException;  
 import android.content.Context;  
 import android.os.Bundle; 
+import android.text.TextUtils;
+
+import ch.antworker.app.Utils;
 
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
   private static final String TAG = "AccountAuthenticator";
-  private final Context mContext
+  private final Context mContext;
 
   public AccountAuthenticator(Context context) {
     super(context);
-    mContext = content;
+    mContext = context;
   }
 
   @Override
@@ -22,7 +27,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     throws NetworkErrorException {
     final Bundle b = new Bundle();
     final Intent i = new Intent(mContext, LoginActivity.class);
-    i.putExtra(AccountManager.PARAM_AUTHTOKEN_TYPE, authTokenType);
+    i.putExtra(Utils.ACCOUNT_TYPE, authTokenType);
     i.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
     b.putParcelable(AccountManager.KEY_INTENT, i);
     return b;
@@ -42,7 +47,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
   @Override
   public Bundle getAuthToken(final AccountAuthenticatorResponse response, final Account account,
     final String authTokenType, final Bundle options) throws NetworkErrorException {
-    if (!authTokenType.equals(Utils.AUTHTOKEN_TYPE)) {
+    if (!authTokenType.equals(Utils.ACCOUNT_TYPE)) {
       final Bundle result = new Bundle();
       result.putString(AccountManager.KEY_ERROR_MESSAGE, "invalid authTokenType");
       return result;
@@ -55,7 +60,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
       if (!TextUtils.isEmpty(authToken)) {
         final Bundle result = new Bundle();
         result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-        result.putString(AccountManager.KEY_ACCOUNT_TYPE, Constants.ACCOUNT_TYPE);
+        result.putString(AccountManager.KEY_ACCOUNT_TYPE, Utils.ACCOUNT_TYPE);
         result.putString(AccountManager.KEY_AUTHTOKEN, authToken);
         return result;
       }
@@ -89,10 +94,10 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         final Intent i = new Intent(mContext, LoginActivity.class);
         i.putExtra(LoginActivity.PARAM_AUTHTOKEN_TYPE, authTokenType);
         i.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
-        if (!TextUtils.isEmpty(account.name)) i.putExtra(PARAM_USERNAME, account.name);
+        if (!TextUtils.isEmpty(account.name)) i.putExtra(Utils.PARAM_USERNAME, account.name);
 
         final Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_INTENT, i);
+        bundle.putParcelable(AccountManager.KEY_INTENT, i);
         return bundle;
   }
 }

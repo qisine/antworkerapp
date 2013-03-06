@@ -17,6 +17,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -26,13 +27,14 @@ public final class Utils {
   public static final String TAG = "Utils";
 
   //App Constants
-  public static final String AUTHTOKEN_TYPE = "ch.antworker";
-  public static final String BASE_URL = "http://antworker.ch"
+  public static final String ACCOUNT_TYPE = "ch.antworker";
+  public static final String BASE_URL = "http://antworker.ch";
 
   //Util Constants
   public static final String PARAM_USERNAME = "first_param";
   public static final String PARAM_PASSWORD = "second_param";
   public static final String AUTH_URL = BASE_URL + "/auth";
+  public static final int HTTP_REQUEST_TIMEOUT_MS = 500 * 1000;
 
   //adapted from Android SyncAdapter sample
   public static String authenticate(String username, String password) {
@@ -42,7 +44,13 @@ public final class Utils {
     params.add(new BasicNameValuePair(PARAM_PASSWORD, password));
 
     final HttpEntity entity;
-    entity = new UrlEncodedFormEntity(params);
+    try {
+      entity = new UrlEncodedFormEntity(params);
+    }
+    catch (UnsupportedEncodingException e) {
+      Log.e(TAG, "something went terribly wrong!", e);
+      return null;
+    }
 
     final HttpPost post = new HttpPost(AUTH_URL);
     post.addHeader(entity.getContentType());
